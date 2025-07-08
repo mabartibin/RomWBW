@@ -473,6 +473,56 @@ AY_BEEP:
 	JP	SND_BEEP		; DEFER TO GENERIC CODE IN HBIOS
 ;
 ;======================================================================
+;	SOUND DRIVER FUNCTION - STARTUP CHIME
+;======================================================================
+;
+AY_CHIME:
+	LD D,$00
+	LD E,2			; Channel A fine
+	CALL AY_WRTPSG
+	INC D
+	LD E,1			; Channel A coarse
+	CALL AY_WRTPSG
+	INC D
+	LD E,74			; Channel B fine
+	CALL AY_WRTPSG
+	INC D
+	LD E,1			; Channel B coarse
+	CALL AY_WRTPSG
+	INC D
+	LD E,8			; Channel C fine
+	CALL AY_WRTPSG
+	INC D
+	LD E,1			; Channel C coarse
+	CALL AY_WRTPSG
+	INC D
+	LD E,0			; Noise frequency
+	CALL AY_WRTPSG
+	INC D
+	LD E,63-7		; Enable tone on A/B/C
+	CALL AY_WRTPSG
+	INC D
+	LD E,16			; Channel A envelope
+	CALL AY_WRTPSG
+	INC D
+	LD E,16			; Channel B envelope
+	CALL AY_WRTPSG
+	INC D
+	LD E,16			; Channel C envelope
+	CALL AY_WRTPSG
+	INC D
+	LD E,0			; Envelope speed fine
+	CALL AY_WRTPSG
+	INC D
+	LD E,23			; Envelope speed coarse
+	CALL AY_WRTPSG
+	INC D
+	LD E,0			; Envelope shape and start
+	CALL AY_WRTPSG
+	RET
+
+				;
+;======================================================================
 ;
 ; 	WRITE DATA IN E REGISTER TO DEVICE REGISTER D
 ;	INTERRUPTS DISABLE DURING WRITE. WRITE IN SLOW MODE IF Z180 CPU.
